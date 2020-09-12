@@ -21,8 +21,8 @@ Route::get('/', function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/', 'CustomersController@index');
     Route::resource('customers', 'CustomersController');
-    Route::resource('country', 'CountriesController');
-    Route::resource('town', 'TownsController');
+    Route::resource('countries', 'CountriesController');
+    Route::resource('towns', 'TownsController');
     Route::get('customers/{id}/travel', 'CustomersController@travel')->name('customers.travel');
 });
 

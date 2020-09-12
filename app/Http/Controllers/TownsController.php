@@ -7,79 +7,44 @@ use Illuminate\Http\Request;
 
 class TownsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        return view('towns.index', ['towns' => Towns::orderBy('title')->get()]);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    // ATTENTION :: we need countries to be able to assign them
     public function create()
     {
-        //
+        $countries = \App\Countries::orderBy('title')->get();
+        return view('towns.create', ['countries' => $countries]);
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $town = new Towns();
+        // can be used for seeing the insides of the incoming request
+        // var_dump($request->all()); die();
+        $town->fill($request->all());
+        $town->save();
+        return redirect()->route('towns.index');
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Towns  $towns
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Towns $towns)
+    public function show(Towns $town)
     {
         //
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Towns  $towns
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Towns $towns)
+    // ATTENTION :: we need countries to be able to assign them
+    public function edit(Towns $town)
     {
-        //
+        $countries = \App\Countries::orderBy('title')->get();
+        return view('towns.edit', ['towns' => $town, 'countries' => $countries]);
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Towns  $towns
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Towns $towns)
+    public function update(Request $request, Towns $town)
     {
-        //
+        $town->fill($request->all());
+        $town->save();
+        return redirect()->route('towns.index');
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Towns  $towns
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Towns $towns)
+    public function destroy(Towns $town)
     {
-        //
+        $town->delete();
+        return redirect()->route('towns.index');
     }
 }

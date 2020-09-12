@@ -7,7 +7,8 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <!-------------- čia įmečiau title ----------------------->
+    <title>@yield('title')</title> 
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -18,13 +19,14 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <title>Travelsite</title>
 </head>
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    {{ config('app.name', 'Travelsite') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -33,9 +35,18 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                        @auth
+                        <li class="nav-item">
+                            <a href="{{ route('countries.index') }}" class="nav-link">Šalys</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('towns.index') }}" class="nav-link">Miestai</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('customers.index') }}" class="nav-link">Klientai</a>
+                        </li>
+                        @endauth
                     </ul>
-
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
@@ -72,9 +83,16 @@
             </div>
         </nav>
 
-        <main class="py-4">
-            @yield('content')
+         <main class="py-4">
+            <div class="container">
+                @yield('content')
+            </div>
         </main>
     </div>
+    <script>
+        tinymce.init({
+          selector: '#mce'
+        });
+      </script>
 </body>
 </html>

@@ -7,79 +7,52 @@ use Illuminate\Http\Request;
 
 class CustomersController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        if (isset($request->country_id) && $request->country_id !== 0)
+            $customers = \App\Customers::where('country_id', $request->country_id)->orderBy('surname')->get();
+        else
+            $customers = \App\Customers::orderBy('surname')->get();
+        $countries = \App\Countries::orderBy('title')->get();
+        return view('customers.index', ['customers' => $customers, 'countries' => $countries]);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        $countries = \App\Countries::orderBy('title')->get();
+        return view('customers.create', ['countries' => $countries]);
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $customer = new Customers();
+        // can be used for seeing the insides of the incoming request
+        // var_dump($request->all()); die();
+        $customer->fill($request->all());
+        $customer->save();
+        return redirect()->route('customers.index');
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Customers  $customers
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Customers $customers)
+    public function show(Customers $customer)
     {
         //
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Customers  $customers
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Customers $customers)
+    public function edit(Customers $customer)
     {
-        //
+        $countries = \App\Countries::orderBy('title')->get();
+        return view('customers.edit', ['customers' => $customer, 'countries' => $countries]);
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Customers  $customers
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Customers $customers)
+    public function update(Request $request, Customers $customer)
     {
-        //
+        $customer->fill($request->all());
+        $customer->save();
+        return redirect()->route('customers.index');
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Customers  $customers
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Customers $customers)
+    public function destroy(Customers $customer, Request $request)
     {
-        //
+        $customer->delete();
+        return redirect()->route('customers.index', ['country_id' => $request->input('country_id')]);
+    }
+    public function travel($id)
+    {
+        $customer = Customers::find($id);
+        return view('customers.travel', ['customer' => $customer]);
     }
 }

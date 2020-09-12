@@ -13,7 +13,7 @@
         <tr>
             <td>{{ $town->title }}</td>
             <td>{{ $town->population }}</td>
-            <td>{{ $town->countries['title'] }}</td>
+            <td>{{ $town->country['title'] }}</td>
             <td>
                 <form action={{ route('towns.destroy', $town->id) }} method="POST">
                     <a class="btn btn-success" href={{ route('towns.edit', $town->id) }}>Redaguoti</a>

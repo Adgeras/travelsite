@@ -10,6 +10,6 @@ class Towns extends Model
 
     public function country()
     {
-        return $this->belongsTo('App\Country');
+        return $this->belongsTo('App\Countries');
     }
 }

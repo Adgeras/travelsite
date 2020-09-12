@@ -35,7 +35,7 @@
             <td>{{ $customer->surname }}</td>
             <td>{{ $customer->email }}</td>
             <td>{{ $customer->phone }}</td>
-            <td>{{ $customer->countries['title'] }}</td>
+            <td>{{ $customer->country['title'] }}</td>
             
             <td>
                 <form action={{ 

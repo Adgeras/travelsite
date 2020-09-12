@@ -53,6 +53,6 @@ class CustomersController extends Controller
     public function travel($id)
     {
         $customer = Customers::find($id);
-        return view('customers.travel', ['customer' => $customer]);
+        return view('customers.travel', ['customers' => $customer]);
     }
 }

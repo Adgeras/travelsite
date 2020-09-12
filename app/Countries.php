@@ -15,7 +15,7 @@ class Countries extends Model
 
     public function customers()
     {
-        return $this->hasMany('App\Customer');
+        return $this->hasMany('App\Customers');
     }
 
 }

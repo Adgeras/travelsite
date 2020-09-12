@@ -3,11 +3,11 @@
 <div class="card">
     <div class="card-header">Kliento ir jo kelionės detalės</div>
     <div class="card-body">
-        <h5>Užsakovas: {{ $customer->name }} {{$customer->surname}}</h5>
-        <h5>Telefonas: {{ $customer->phone }}</h5>
-        <h5>El. paštas: {{ $customer->email }}</h5>
+        <h5>Užsakovas: {{ $customers->name }} {{$customers->surname}}</h5>
+        <h5>Telefonas: {{ $customers->phone }}</h5>
+        <h5>El. paštas: {{ $customers->email }}</h5>
         <hr>
-        {{-- <h5>Kelionės šalis:  {{ $customer->country['title'] }}</h5> --}}
+        <h5>Keliauja į šalį:  {{  $customers->country['title'] }}</h5>
         <h5>Lankytini miestai: </h5>
         <table class="table">
             <tr>

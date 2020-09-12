@@ -10,7 +10,7 @@ class Countries extends Model
 
     public function towns()
     {
-        return $this->hasMany('App\Town');
+        return $this->hasMany('App\Towns');
     }
 
     public function customers()

@@ -15,7 +15,11 @@ class CreateTownsTable extends Migration
     {
         Schema::create('towns', function (Blueprint $table) {
             $table->id();
+            $table->string('title', 30);
+            $table->integer('population');
+            $table->unsignedBigInteger('country_id');
             $table->timestamps();
+            $table->foreign('country_id')->references('id')->on('countries');
         });
     }
 

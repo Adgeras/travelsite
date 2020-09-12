@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,6 +18,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Route::middleware(['auth'])->group(function () {
+    Route::get('/', 'CustomersController@index');
+    Route::resource('customers', 'CustomersController');
+    Route::resource('country', 'CountriesController');
+    Route::resource('town', 'TownsController');
+    Route::get('customers/{id}/travel', 'CustomersController@travel')->name('customers.travel');
+});
 
+Auth::routes(['register' => false]);
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+

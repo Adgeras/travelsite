@@ -50,9 +50,11 @@ class CustomersController extends Controller
         $customer->delete();
         return redirect()->route('customers.index', ['country_id' => $request->input('country_id')]);
     }
-    public function travel($id)
+    public function travel($country_id)
     {
-        $customer = Customers::find($id);
-        return view('customers.travel', ['customers' => $customer]);
+        
+        $cuer = Customers::find($country_id);
+        var_dump($cuer . 'ok'); 
+        return view('customers.travel', ['customers' => $cuer]);
     }
 }

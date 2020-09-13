@@ -27,8 +27,11 @@ class CreateCountriesTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
-        Schema::dropIfExists('countries');
+        Schema::dropIfExists('countries', function (Blueprint $table) {
+            $table->dropUnique(['country_id']);
+            $table->dropForeign(['country_id']);
+        });
     }
 }

@@ -38,16 +38,11 @@
             <td>{{ $customer->country['title'] }}</td>
             
             <td>
-                <form action={{ 
-                        route('customers.destroy', $customer->id) . 
-                        ( app('request')->input('country_id') !== '' 
-                            ? '?country_id=' . app('request')->input('country_id') 
-                            : '' )
-                    }} method="POST">
+                <form action={{ route('customers.destroy', $customer->id) }} method="POST">
                     <a class="btn btn-success" href={{ route('customers.edit', $customer->id) }}>Redaguoti</a>
                     @csrf @method('delete')
                     <input type="submit" class="btn btn-danger" value="Trinti"/>
-                    <a href="{{ route('customers.travel', $customer->country_id) }}" class="btn btn-primary" role="button">Peržiūrėti kelionę</a>
+                    {{-- <a href="{{ route('customers.travel', $customers->country_id) }}" class="btn btn-primary" role="button">Peržiūrėti kelionę</a> --}}
                 </form>
             </td>
         </tr>
